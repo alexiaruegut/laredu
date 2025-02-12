@@ -50,13 +50,19 @@ DB_PASSWORD=
 composer install
 ```
 
-4️⃣ **Genera la clave de la aplicación y cachea la configuración**
+4️⃣ **Genera la clave de la aplicación**
 ```sh
 php artisan key:generate
-php artisan config:cache
 ```
+Esta clave se usa para la encriptación de datos y debe generarse en cada entorno.
 
-5️⃣ **Ejecuta las migraciones y seeders**
+5️⃣ **Importa la base de datos**
+El archivo **laredu.sql** en el repositorio ya contiene la estructura y datos de prueba.
+Para importarlo, usa el siguiente comando:
+```sh
+mysql -u root -p laredu < backend/database/laredu.sql
+```
+Si prefieres crear una base de datos desde cero, también puedes ejecutar:
 ```sh
 php artisan migrate --seed
 ```
@@ -70,57 +76,46 @@ php artisan serve
 ---
 
 ## 📌 Base de Datos
-La base de datos se puede poblar de dos maneras:
-
-1️⃣ **Con migraciones y seeders (recomendado):**
-```sh
-php artisan migrate --seed
-```
-Esto creará la estructura de la base de datos y poblará datos de prueba.
-
-2️⃣ **Importando el archivo SQL manualmente:**
+El archivo **laredu.sql** ya contiene la estructura de la base de datos y datos de prueba. Para importarlo manualmente en MySQL:
 ```sh
 mysql -u root -p laredu < backend/database/laredu.sql
 ```
-El archivo **laredu.sql** contiene la estructura de la base de datos y datos de prueba listos para Postman. Si prefieres, puedes crear tus propios datos manualmente utilizando la API.
+Si deseas generar la base de datos desde cero, puedes ejecutar:
+```sh
+php artisan migrate --seed
+```
+Si decides no importar `laredu.sql`, deberás registrar usuarios y datos manualmente en la API.
 
 ---
 
 ## 📌 Pruebas con Postman
 Para probar la API en **Postman**, sigue estos pasos:
 
-1️⃣ **Importa la colección de Postman**
-```sh
-docs/Laredu.postman_collection.json
-```
-
-2️⃣ **Registrar un usuario y autenticarse**
+1️⃣ **Registrar un usuario y autenticarse**
 - Primero, ejecuta `POST /api/register` para crear un usuario.
 - Luego, ejecuta `POST /api/login` con el correo y contraseña registrados.
 - Copia el token de respuesta.
 
-3️⃣ **Añadir el token a las solicitudes protegidas**
+2️⃣ **Añadir el token a las solicitudes protegidas**
 En cada solicitud protegida, ve a la pestaña `Headers` en Postman y añade:
 ```
 Key: Authorization
 Value: Bearer TU_TOKEN_AQUI
 ```
 
-4️⃣ **Endpoints disponibles:**
+3️⃣ **Endpoints disponibles:**
 - `POST /api/register` → Registrar usuario
 - `POST /api/login` → Iniciar sesión
 - `GET /api/me` → Obtener usuario autenticado
 - `POST /api/logout` → Cerrar sesión
-- `GET /api/courses` → Listar cursos
-- `GET /api/subjects` → Listar asignaturas
-- `POST /api/assignments` → Crear una asignación
-- `GET /api/assignments` → Listar asignaciones
-- `POST /api/submissions` → Crear una entrega
-- `GET /api/submissions` → Listar entregas
-- `GET /api/calendar` → Ver eventos en el calendario
-- `GET /api/messages` → Ver mensajes
+- `GET /api/courses` → Listar cursos (*`POST`, `PUT`, `DELETE` disponibles para crear, actualizar y eliminar cursos*)
+- `GET /api/subjects` → Listar asignaturas (*`POST`, `PUT`, `DELETE` para gestionar asignaturas*)
+- `GET /api/assignments` → Listar asignaciones (*`POST`, `PUT`, `DELETE` para gestionar tareas*)
+- `GET /api/submissions` → Listar entregas (*`POST`, `PUT`, `DELETE` para gestionar entregas*)
+- `GET /api/calendar` → Ver eventos en el calendario (*`POST`, `PUT`, `DELETE` para gestionar eventos*)
+- `GET /api/messages` → Ver mensajes (*`POST` para enviar mensajes*)
 - `GET /api/messages/conversation/{id}` → Ver conversación específica
-- `GET /api/roles` → Listar roles
+- `GET /api/roles` → Listar roles (*`POST`, `PUT`, `DELETE` para gestionar roles*)
 
 ---
 
