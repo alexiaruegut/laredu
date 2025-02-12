@@ -70,17 +70,19 @@ php artisan serve
 ---
 
 ## 📌 Base de Datos
-Puedes poblar la base de datos de dos maneras:
+La base de datos se puede poblar de dos maneras:
 
 1️⃣ **Con migraciones y seeders (recomendado):**
 ```sh
 php artisan migrate --seed
 ```
+Esto creará la estructura de la base de datos y poblará datos de prueba.
 
 2️⃣ **Importando el archivo SQL manualmente:**
 ```sh
 mysql -u root -p laredu < backend/database/laredu.sql
 ```
+El archivo **laredu.sql** contiene la estructura de la base de datos y datos de prueba listos para Postman. Si prefieres, puedes crear tus propios datos manualmente utilizando la API.
 
 ---
 
@@ -92,21 +94,33 @@ Para probar la API en **Postman**, sigue estos pasos:
 docs/Laredu.postman_collection.json
 ```
 
-2️⃣ **Autenticación** (Necesitas un token para rutas protegidas)
-- Primero, ejecuta `POST /api/login`
-- Copia el token de respuesta
-- En cada solicitud protegida, agrega este header en Postman:
-  ```
-  Key: Authorization
-  Value: Bearer TU_TOKEN_AQUI
-  ```
+2️⃣ **Registrar un usuario y autenticarse**
+- Primero, ejecuta `POST /api/register` para crear un usuario.
+- Luego, ejecuta `POST /api/login` con el correo y contraseña registrados.
+- Copia el token de respuesta.
 
-3️⃣ **Endpoints disponibles:**
-- `POST /api/register` → Registro de usuario
-- `POST /api/login` → Inicio de sesión
-- `GET /api/courses` → Listar cursos
-- `POST /api/assignments` → Crear asignación
+3️⃣ **Añadir el token a las solicitudes protegidas**
+En cada solicitud protegida, ve a la pestaña `Headers` en Postman y añade:
+```
+Key: Authorization
+Value: Bearer TU_TOKEN_AQUI
+```
+
+4️⃣ **Endpoints disponibles:**
+- `POST /api/register` → Registrar usuario
+- `POST /api/login` → Iniciar sesión
 - `GET /api/me` → Obtener usuario autenticado
+- `POST /api/logout` → Cerrar sesión
+- `GET /api/courses` → Listar cursos
+- `GET /api/subjects` → Listar asignaturas
+- `POST /api/assignments` → Crear una asignación
+- `GET /api/assignments` → Listar asignaciones
+- `POST /api/submissions` → Crear una entrega
+- `GET /api/submissions` → Listar entregas
+- `GET /api/calendar` → Ver eventos en el calendario
+- `GET /api/messages` → Ver mensajes
+- `GET /api/messages/conversation/{id}` → Ver conversación específica
+- `GET /api/roles` → Listar roles
 
 ---
 
