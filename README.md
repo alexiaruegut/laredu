@@ -57,6 +57,7 @@ php artisan key:generate
 Esta clave se usa para la encriptación de datos y debe generarse en cada entorno.
 
 5️⃣ **Importa la base de datos**
+
 El archivo **laredu.sql** en el repositorio ya contiene la estructura y datos de prueba.
 Para importarlo, usa el siguiente comando:
 ```sh
