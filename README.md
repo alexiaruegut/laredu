@@ -124,7 +124,7 @@ Value: Bearer TU_TOKEN_AQUI
 2️⃣ Añade y sube los cambios al repositorio:
 ```sh
 git add .
-git commit -m "Added backend and frontend"
+git commit -m "Added backend"
 git push origin main
 ```
 
