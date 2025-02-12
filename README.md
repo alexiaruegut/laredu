@@ -128,7 +128,3 @@ git commit -m "Added backend and frontend"
 git push origin main
 ```
 
----
-
-## 📌 Licencia
-Este proyecto está bajo la licencia **MIT**. ¡Siéntete libre de mejorarlo! 🚀
